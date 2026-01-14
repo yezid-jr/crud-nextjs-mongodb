@@ -1,23 +1,23 @@
-import { connectDB } from "@/lib/mongodb";
-import { User } from "@/types/user";
+import { connectDB } from "@/library/connMongoDb";
+import { Coder } from "@/types/coder";
 import { ObjectId } from "mongodb";
 
-export async function getUsers() {
+export async function getCoders() {
   const db = await connectDB();
-  return db.collection("users").find().toArray();
+  return db.collection("coders").find().toArray();
 }
 
-export async function createUser(user: User) {
+export async function createCoder(user: Coder) {
   const db = await connectDB();
-  return db.collection("users").insertOne({
+  return db.collection("coders").insertOne({
     ...user,
     createdAt: new Date(),
   });
 }
 
-export async function updateUser(id: string, user: Partial<User>) {
+export async function updateCoder(id: string, user: Partial<Coder>) {
   const db = await connectDB();
-  return db.collection("users").updateOne(
+  return db.collection("coders").updateOne(
     { _id: new ObjectId(id) },
     { $set: user }
   );
